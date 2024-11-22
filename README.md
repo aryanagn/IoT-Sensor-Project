@@ -3,7 +3,7 @@
 # Launching a Django Project
 
 ### 1. Clone repository:
-**`git clone https://github.com/aryanagn/BC-ParkSense-Hub-IoT-Sensor-System.git`** 
+**`git clone https://github.com/aryanagn/IoT-Sensor-Project.git`** 
 
 ### 2. Set Up a Virtual Environment (Optional but Recommended):
 
