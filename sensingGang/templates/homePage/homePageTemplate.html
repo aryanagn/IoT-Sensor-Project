@@ -1,0 +1,251 @@
+<!-- the homePage template extends the masterTemplate, which includes the navbar-->
+{% extends "../masterTemplate.html" %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'homePageTemplate.css' %}">
+{% endblock style %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="main">
+    </div>
+    {% for subscription in results %}
+    {% if subscription.sensorX %}
+    <div class="item">
+        <div class="col-md-4">
+            <h5 style = "font-size:1.2em; color: #777777;"> Average rainfall in Kootenay Region (mm) </h3>
+            <select id="chartType1" class="form-select">
+                <option value="line" selected>Line Chart</option>
+                <option value="bar">Bar Chart</option>
+                <option value="pie">Pie Chart</option>
+                <option value="radar">Radar Chart</option>
+                <option value="doughnut">Doughnut Chart</option>
+            </select>
+        </div>
+
+        <div class="col-md-8">
+            <canvas id="myChart1" width="400" height="250"></canvas>
+            <script>
+                var ctx = document.getElementById('myChart1').getContext('2d');
+                var myChart1;
+                
+                function createChart1(type) {
+                    if(myChart1) {
+                        myChart1.destroy();
+                    }
+                    myChart1 = new Chart(ctx, {
+                        type: type,
+                        data: {
+                            labels: [{% for x in dataX %}  '{{ x.pub_date|date:'H:i:s, F j, Y' }}',  {% endfor %}],
+                            datasets: [{
+                                label: 'Sensor X',
+                                data: [{% for x in dataX %}  {{ x.data }},  {% endfor %}],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.8)',
+                                    'rgba(54, 162, 235, 0.8)',
+                                    'rgba(255, 206, 86, 0.8)',
+                                    'rgba(75, 192, 192, 0.8)',
+                                    'rgba(153, 102, 255, 0.8)',
+                                    'rgba(255, 159, 64, 0.8)',
+                                    'rgba(240, 120, 50, 0.8)',
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(240, 120, 50, 1)',
+        
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                //default chart type
+                createChart1('line');
+        
+                //update upon user selection from drop down
+                document.getElementById('chartType1').addEventListener('change', function() {
+                    var type = document.getElementById('chartType1').value;
+                    createChart1(type);
+                });
+            </script>
+        </div>
+    </div>
+    {% endif %}
+    {% if subscription.sensorY %} 
+    <div class="item">
+        <div class="col-md-4">
+            <h5 style = "font-size:1.2em; color: #777777;"> Humidity fluxuation in Glacier National Park (%RH) </h3>
+            <select id="chartType2" class="form-select">
+                <option value="line" selected>Line Chart</option>
+                <option value="bar">Bar Chart</option>
+                <option value="pie">Pie Chart</option>
+                <option value="radar">Radar Chart</option>
+                <option value="doughnut">Doughnut Chart</option>
+    
+    
+            </select>
+        </div>
+    
+        <div class="col-md-8">
+            <canvas id="myChart2" width="400" height="250"></canvas>
+            <script>
+                var ctx2 = document.getElementById('myChart2').getContext('2d');
+                var myChart2;
+                
+                function createChart2(type2) {
+                    if(myChart2) {
+                        myChart2.destroy();
+                    }
+                    myChart2 = new Chart(ctx2, {
+                        type: type2,
+                        data: {
+                            labels: [{% for x in dataY %}  '{{ x.pub_date|date:'H:i:s, F j, Y'  }}',  {% endfor %}],
+                            datasets: [{
+                                label: 'Sensor Y',
+                                data: [{% for x in dataY %}  {{ x.data }},  {% endfor %}],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.8)',
+                                    'rgba(54, 162, 235, 0.8)',
+                                    'rgba(255, 206, 86, 0.8)',
+                                    'rgba(75, 192, 192, 0.8)',
+                                    'rgba(153, 102, 255, 0.8)',
+                                    'rgba(255, 159, 64, 0.8)',
+                                    'rgba(240, 120, 50, 0.8)',
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(240, 120, 50, 1)',
+        
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                //default chart type
+                createChart2('line');
+        
+                //update upon user selection from drop down
+                document.getElementById('chartType2').addEventListener('change', function() {
+                    var type2 = document.getElementById('chartType2').value;
+                    createChart2(type2);
+                });
+            </script>
+        </div>
+    </div> 
+    {% endif %}
+    {% if subscription.sensorZ %}
+    <div class="item">
+        <div class="col-md-4">
+            <h5 style = "font-size:1.2em; color: #777777;"> Animal traffic through Banff Wildlife Crossing </h5>
+            <select id="chartType3" class="form-select">
+                <option value="line" selected>Line Chart</option>
+                <option value="bar">Bar Chart</option>
+                <option value="pie">Pie Chart</option>
+                <option value="radar">Radar Chart</option>
+                <option value="doughnut">Doughnut Chart</option>
+        
+        
+            </select>
+        </div>
+        
+        <div class="col-md-8">
+            <canvas id="myChart3" width="400" height="250"></canvas>
+            <script>
+                var ctx3 = document.getElementById('myChart3').getContext('2d');
+                var myChart3;
+                
+                function createChart3(type3) {
+                    if(myChart3) {
+                        myChart3.destroy();
+                    }
+                    myChart3 = new Chart(ctx3, {
+                        type: type3,
+                        data: {
+                            labels: [{% for x in dataZ %}  '{{ x.pub_date|date:'H:i:s, F j, Y'  }}',  {% endfor %}],
+                            datasets: [{
+                                label: 'Sensor Z',
+                                data: [{% for x in dataZ %}  {{ x.data }},  {% endfor %}],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.8)',
+                                    'rgba(54, 162, 235, 0.8)',
+                                    'rgba(255, 206, 86, 0.8)',
+                                    'rgba(75, 192, 192, 0.8)',
+                                    'rgba(153, 102, 255, 0.8)',
+                                    'rgba(255, 159, 64, 0.8)',
+                                    'rgba(240, 120, 50, 0.8)',
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(240, 120, 50, 1)',
+        
+                                ],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+                
+                //default chart type
+                createChart3('line');
+        
+                //update upon user selection from drop down
+                document.getElementById('chartType3').addEventListener('change', function() {
+                    var type3 = document.getElementById('chartType3').value;
+                    createChart3(type3);
+                });
+            </script>
+        </div>
+    </div> 
+    {% endif %}
+</div> 
+{% endfor %}
+</div>
+<div class="item">
+    <span> <a href="{% url 'button' %}"><button>Get Live Update!</button></a></span>
+</div>
+</div>  
+{% else %}
+  <div class = "message"> You must be registered to view sensor data!</div>
+{% endif %}
+{% endblock content %}

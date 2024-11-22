@@ -1,0 +1,31 @@
+<!-- the homePage template extends the masterTemplate, which includes the navbar-->
+{% extends "../masterTemplate.html" %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'homePageTemplate.css' %}">
+{% endblock style %}
+
+{% block content %}
+{% for message in messages %}
+        <div class = "messages">
+          {{ message }}
+        </div>
+      {% endfor %}
+      <div class = "form">
+        <form action="" method="post">
+            {% csrf_token %}
+           <label = for"">Username</label>
+           <input type = "text" id = "username" name = 'username' placeholder = "Enter Username">
+           <label = for"">Password</label>
+           <input type = "password" id = "password" name = 'password' placeholder = "Enter Password">
+           <button type = "submit">Login</button>
+       </form> 
+      </div>  
+       
+        <script src="" async defer></script>
+{% endblock content %}
+
+<body>
+  <h1> Welcome </h1>
+</body>

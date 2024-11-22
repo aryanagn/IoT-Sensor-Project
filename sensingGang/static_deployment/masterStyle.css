@@ -1,0 +1,30 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+#logo{
+    color: rgb(33, 162, 37);
+    padding-left: 25px;
+    float:left;
+}
+#signinMessage{
+    color: blue;
+}
+
+
+li a{
+    float:right;
+    display: block;
+    padding: 14px 16px;
+    text-align: center;
+    color: #96b59f;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+li a:hover{
+    background-color: #777777;
+    color: #ffff;
+}

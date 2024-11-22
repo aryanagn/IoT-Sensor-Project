@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Data</h1>
+  
+<ul>
+  {% for x in entries %}
+    <li>{{ x.topic }} {{ x.data }} {{ x.pub_date }}</li>
+  {% endfor %}
+  </ul>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+
+{% block content %}
+<h1>MQTT Data</h1>
+<ul>
+    <h4>Sensor 1</h4>
+    {% if is_sub_s1 %}
+    {% for message in mqtt_data_list1 %}
+    <li>{{ message }}</li>
+    {% endfor %}
+    {% else %}
+    <h5>not subscibed to sensor 1</h5>
+    {% endif %}
+</ul>
+<ul>
+    <h4>Sensor 2</h4>
+    {% if is_sub_s2 %}
+    {% for message in mqtt_data_list2 %}
+    <li>{{ message }}</li>
+    {% endfor %}
+    {% else %}
+    <h5>not subscibed to sensor 2</h5>
+    {% endif %}
+</ul>
+<ul>
+    <h4>Sensor 3</h4>
+    {% if is_sub_s3 %}
+    {% for message in mqtt_data_list3 %}
+    <li>{{ message }}</li>
+    {% endfor %}
+    {% else %}
+    <h5>not subscibed to sensor 3</h5>
+    {% endif %}
+</ul>
+{% endblock %}

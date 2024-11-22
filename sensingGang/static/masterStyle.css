@@ -1,0 +1,80 @@
+div.nav{
+    height: .5% !important;
+    margin-bottom: 2%;
+    box-sizing: border-box;
+
+}
+div.content{
+    margin-left: 1.5%;
+    font-family: sans-serif;
+    min-height: 100%;
+}
+ul {
+    list-style-type: none;
+    overflow: hidden;
+    background-color: #333;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding:0 !important;
+}
+#logo{
+    color: #FFCC00;
+    float:left;
+    padding: 1% 1.5%;
+    margin: 0 0 0 0;
+    background-color: #009B4D;
+    box-sizing: border-box; 
+    font-family: sans-serif;
+    height: 65px !important;
+    font-size:150% !important;
+}
+
+
+li a{
+    float:right;
+    display: block;
+    padding: 22px 16px;
+    text-align: center;
+    color: #009B4D;
+    font-family: sans-serif;
+    text-decoration: none;
+    box-sizing: border-box;
+    height: 100%;
+    font-weight:bold;
+}
+li a:hover{
+    background-color: #777777;
+    color: #FAF5E9;
+}
+body {
+    background-color: #FAF5E9 !important;
+
+}
+form{
+    border-radius: 5px;
+    background-color: #777777;
+    padding: 2%;
+    height: 10%;
+    width: 30%;
+}
+input[type=text], input[type=email], input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+button{
+    background-color: #009B4D;
+    border: none;
+    color: #FAF5E9;
+    cursor: pointer;
+    margin: 5px 2px;
+    padding: 10px 15px;
+    width: 100%;
+}
