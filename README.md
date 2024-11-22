@@ -7,7 +7,7 @@
 
 ### 2. Set Up a Virtual Environment (Optional but Recommended):
 
-- cd project
+- cd to sensinggang folder
 - python -m venv venv
 ### On Windows:
 venv\Scripts\activate
