@@ -1,31 +1,48 @@
-<!-- the homePage template extends the masterTemplate, which includes the navbar-->
 {% extends "../masterTemplate.html" %}
-
 {% load static %}
+
 {% block style %}
 <link rel="stylesheet" href="{% static 'homePageTemplate.css' %}">
 {% endblock style %}
 
 {% block content %}
-{% for message in messages %}
-        <div class = "messages">
-          {{ message }}
-        </div>
-      {% endfor %}
-      <div class = "form">
-        <form action="" method="post">
-            {% csrf_token %}
-           <label = for"">Username</label>
-           <input type = "text" id = "username" name = 'username' placeholder = "Enter Username">
-           <label = for"">Password</label>
-           <input type = "password" id = "password" name = 'password' placeholder = "Enter Password">
-           <button type = "submit">Login</button>
-       </form> 
-      </div>  
-       
-        <script src="" async defer></script>
-{% endblock content %}
+<passage-auth app-id="YOUR_PASSAGE_APP_ID"></passage-auth>
+<!-- Replace YOUR_PASSAGE_APP_ID with your actual Passage app ID, took it out due to security -->
 
-<body>
-  <h1> Welcome </h1>
-</body>
+{% if user.is_authenticated %}
+  <p>Welcome back, {{ user.first_name }}!</p>
+  <p>You are already signed in.</p>
+  <a href="{% url 'homePage' %}">Go to Home Page</a>
+{% else %}
+  <p>Please sign in to continue.</p>
+{% endif %}
+
+{% for message in messages %}
+  <div class="messages">
+    {{ message }}
+  </div>
+{% endfor %}
+
+<!-- Fixed CDN URL -->
+<script src="https://cdn.passage.id/passage-elements/v2.x/passage-elements.js" defer></script>
+<script>
+  document.addEventListener("passage-auth-success", async function(event) {
+    const authToken = event.detail.authToken;
+    await fetch("{% url 'passage_auth_callback' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-CSRFToken": "{{ csrf_token }}"
+      },
+      body: `auth_token=${authToken}`
+    }).then(response => response.json())
+      .then(data => {
+        if (data.status === "success") {
+          window.location.href = "{% url 'homePage' %}";
+        } else {
+          alert("Authentication failed: " + data.message);
+        }
+      });
+  });
+</script>
+{% endblock content %}

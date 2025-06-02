@@ -1,35 +1,39 @@
-<!-- the homePage template extends the masterTemplate, which includes the navbar-->
 {% extends "../masterTemplate.html" %}
-
 {% load static %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'homePageTemplate.css' %}">
 {% endblock style %}
 
 {% block content %}
-        
-        {% for message in messages %}
-        <div class = "messages">
-          {{ message }}
-        </div>
-        {% endfor %}
-        <div class = "form">
-        <form action="/signup" method="post">
-             {% csrf_token %}
-            <label = for"">Username</label>
-            <input type = "text" id = "username" name = 'username' placeholder = "Create a username">
-            <label = for"">First name</label>
-            <input type = "text" id = "firstname" name = 'firstname' placeholder = "First Name">
-            <label = for"">Last name</label>
-            <input type = "text" id = "lastname" name = 'lastname' placeholder = "Last name">
-            <label = for"">Email Address</label>
-            <input type = "email" id = "email" name = 'email' placeholder = "Email Address">
-            <label = for"">Password</label>
-            <input type = "password" id = "password" name = 'password' placeholder = "Password">
-            <label = for"">Confirm Password</label>
-            <input type = "password"  id = "confirmPassword" name = 'confirmPassword' placeholder = "Confirm Password">
-            <button type = "submit">Sign Up</button>
-        </form>   
-      </div>
-        <script src="" async defer></script>
+{% for message in messages %}
+  <div class="messages">
+    {{ message }}
+  </div>
+{% endfor %}
+
+<passage-register app-id="YOUR_PASSAGE_APP_ID"></passage-register>
+<!-- Replace YOUR_PASSAGE_APP_ID with your actual Passage app ID, took it out due to security -->
+
+
+<script src="https://cdn.passage.id/passage-elements/v2.x/passage-elements.js" defer></script>
+<script>
+  document.addEventListener("passage-auth-success", async function(event) {
+    const authToken = event.detail.authToken;
+    await fetch("{% url 'passage_auth_callback' %}", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-CSRFToken": "{{ csrf_token }}"
+      },
+      body: `auth_token=${authToken}`
+    }).then(response => response.json())
+      .then(data => {
+        if (data.status === "success") {
+          window.location.href = "{% url 'homePage' %}";
+        } else {
+          alert("Registration failed: " + data.message);
+        }
+      });
+  });
+</script>
 {% endblock content %}
