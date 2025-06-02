@@ -1,5 +1,7 @@
-# The Project: BC ParkSense Hub IoT Monitoring System
-
+# BC ParkSense Hub IoT Monitoring System
+----
+### Software Development Perspective/Workflow (Use Cases/Extensions)
+----
 # Launching a Django Project
 
 ### 1. Download Repo
@@ -112,6 +114,9 @@ IoT Sensor Monitoring system is an application that allows users to take advanta
 6. If the user's information is valid, the system creates an account for the user and stores their information securely in the database.
 7. The system displays a confirmation message to the user, indicating that their account has been created successfully.
 
+### UPDATED: 
+1. Users authenticate via Passage with passkeys—no passwords needed. After login, they can access, manage, and customize data views.
+
 ### Extensions:
 
 1a. Client enters invalid information in the form (weak password or invalid email)
@@ -126,7 +131,7 @@ IoT Sensor Monitoring system is an application that allows users to take advanta
 
 **Primary actor:**  Client
 
-**Description:**  Allow user to log in and out of the IoT monitor sensor system
+**Description:**  Allow user to log in and out of the IoT monitor sensor system (**using passage by 1Password**)
 
 **Pre-conditions:**  The user must have an account created on the system.
 
@@ -141,6 +146,10 @@ IoT Sensor Monitoring system is an application that allows users to take advanta
 5. The user can now access the sensor data and perform other system functions.
 6. When the user is done using the system, they can choose to log out.
 7. The system logs the user out and returns to the login screen.
+
+### UPDATED: 
+1. Users authenticate via Passage with passkeys—no passwords needed. After login, they can access, manage, and customize data views.
+
 
 ### Extensions:
 
@@ -290,13 +299,3 @@ IoT Sensor Monitoring system is an application that allows users to take advanta
 2a. Connection errors
 
 2a1. Displays message for invalid connection from broker to IoT device.
-
-![UseCaseDiagram.png](Diagrams/iotCaseDiagram.png)
-
-## Proto-personas:
-
-![ProtoPersona.png](Diagrams/iotProtoPersona.png)
-
-### Client:
-
-The client is someone who’s interested in this particular sub-set of data from the IoT, is tech savvy, and has the desire to configure their own solution, and instead wants a curated picture of what a set of sensors has collected. 
