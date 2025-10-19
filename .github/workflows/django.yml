@@ -18,7 +18,7 @@ jobs:
       uses: docker/setup-buildx-action@v3
 
     - name: Build Docker image
-      run: docker build -t iot-sensor-app .
+      run: docker build -t iot-sensor-app -f sensingGang/Dockerfile sensingGang
 
     - name: Run tests inside container
       run: |
